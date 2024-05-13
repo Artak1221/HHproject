@@ -1,0 +1,6 @@
+translation:
+  firstname: 'Имя'
+  lastname: 'Фамилия'
+  description: 'Описание'
+  submit: 'Отправить'
+  my_translation_form: 'Моя форма перевода'

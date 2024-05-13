@@ -1,0 +1,24 @@
+{% extends '@web/base.html.twig' %}
+
+{% block title %}My Translation Form{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="d-flex justify-content-evenly">
+                        <a class="" href="{{ path('page_form', {'_locale': 'en'}) }}">English</a>
+                        <a class="" href="{{ path('page_form', {'_locale': 'ru'}) }}">Русский</a>
+                        <a class="" href="{{ path('page_form', {'_locale': 'ru2'}) }}">Русский2</a>
+        </div>
+    </div>
+    <div class="login">
+        {{ form_start(form) }}
+            <form method="post">
+                <h1 class="h3 mb-3 font-weight-normal">{{ 'translation.my_translation_form'|trans }}</h1>
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.description) }}
+                    {{ form_row(form.submit) }}
+            </form>
+        {{ form_end(form) }}
+        </div>
+
+{% endblock %}

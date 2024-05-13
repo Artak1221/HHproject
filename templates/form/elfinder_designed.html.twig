@@ -1,0 +1,92 @@
+{% block elfinder_designed_row %}
+    <style>
+        .elfinder-design {
+            position: relative;
+        }
+
+        .elfinder-design input {
+            opacity: 0 !important;
+            z-index: 9;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .elfinder-mask {
+            position: absolute;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: #222d32;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            width: max-content;
+            padding: 0 15px;
+        }
+
+        .image-wrapper {
+            margin: 10px 0;
+            width: 300px;
+            display: flex;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 30%);
+        }
+    </style>
+
+    <div class="elfinder-design">
+        <div class="elfinder-mask">
+            Choose A File
+        </div>
+        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}
+               data-type="elfinder-input-field"/>
+        {% if enable and instance is defined %}
+            <script type="text/javascript" charset="utf-8">
+                live('click', '[data-type="elfinder-input-field"][id="{{ id }}"]', function (event) {
+                    console.warn('Test');
+                    var childWin = window.open("{{ path('elfinder', {'instance': instance, 'homeFolder': homeFolder }) }}?id={{ id }}", "popupWindow", "height=450, width=900");
+                });
+
+                function live(eventType, elementQuerySelector, cb) {
+                    document.addEventListener(eventType, function (event) {
+                        var qs = document.querySelectorAll(elementQuerySelector);
+                        if (qs) {
+                            var el = event.target, index = -1;
+                            while (el && ((index = Array.prototype.indexOf.call(qs, el)) === -1)) {
+                                el = el.parentElement;
+                            }
+                            if (index > -1) {
+                                cb.call(el, event);
+                            }
+                        }
+                    })
+                }
+
+                function setValue(value, element_id) {
+                    document.querySelector('[data-type="elfinder-input-field"]' + (element_id ? '[id="' + element_id + '"]' : '')).value = value;
+                    document.querySelector('.show_image_' + element_id + ' img').src = value;
+                }
+            </script>
+        {% endif %}
+    </div>
+
+
+
+    {% if form.vars['value']|split('.')|last == 'pdf' %}
+        <a style="    display: block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background: #222d32;
+    width: max-content;
+    color: white;
+    font-size: 18px;" target="_blank" href="{{ asset(form.vars['value']) }}">Show File</a>
+    {% else %}
+        <div class="image-wrapper show_image_{{ form.vars['id'] }}">
+            <img src="{{ asset(form.vars['value']) }}" width="100%" alt="">
+        </div>
+    {% endif %}
+
+{% endblock %}

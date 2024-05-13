@@ -1,0 +1,14 @@
+stof_doctrine_extensions:
+    default_locale: '%locale%'
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
+#            tree:           MyBundle\TreeListener
+#            timestampable:  MyBundle\TimestampableListener
+#            blameable:      ~
+#            sluggable:      ~
+#            translatable:   ~
+#            loggable:       ~
+#            softdeleteable: ~
+#            uploadable:     ~
